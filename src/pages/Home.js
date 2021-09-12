@@ -37,6 +37,7 @@ class Home extends Component {
       progress: 0,
       imageUrl: null,
       totalCount: 0,
+      loader: false,
     };
   }
 
@@ -90,6 +91,9 @@ class Home extends Component {
     //   },
     // };
     // await setDoc(doc(db, "news", "one"), docData);
+    this.setState({
+      loader: true,
+    });
 
     const docData = {
       author: this.state.name,
@@ -149,6 +153,7 @@ class Home extends Component {
       progress: 0,
       imageUrl: null,
       uploadShow: false,
+      loader: false,
     });
   };
 
@@ -170,7 +175,7 @@ class Home extends Component {
       contentType: "image/jpeg",
     };
 
-    const storageRef = ref(storage, "images/", this.state.file.name);
+    const storageRef = ref(storage, "images/" + this.state.file.name);
     const uploadTask = uploadBytesResumable(
       storageRef,
       this.state.file,
@@ -344,6 +349,34 @@ class Home extends Component {
               Submit
             </button>
           </form>
+          {this.state.loader && (
+            <div className="loader">
+              <div
+                id="loading-indicator"
+                // style="width: 60px; height: 60px;"
+                style={{
+                  width: 60,
+                  height: 60,
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                }}
+                role="progressbar"
+                class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+              >
+                <svg viewBox="22 22 44 44" class="MuiCircularProgress-svg">
+                  <circle
+                    cx="44"
+                    cy="44"
+                    r="20.2"
+                    fill="none"
+                    stroke-width="3.6"
+                    class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                  ></circle>
+                </svg>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
