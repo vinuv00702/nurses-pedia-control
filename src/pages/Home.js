@@ -170,7 +170,7 @@ class Home extends Component {
       contentType: "image/jpeg",
     };
 
-    const storageRef = ref(storage, "images/", this.state.file.name);
+    const storageRef = ref(storage, "images/" + this.state.file.name);
     const uploadTask = uploadBytesResumable(
       storageRef,
       this.state.file,
